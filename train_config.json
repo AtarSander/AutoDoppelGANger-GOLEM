@@ -1,0 +1,11 @@
+{
+    "num_epochs": 200,
+    "batch_size": 32,
+    "learning_rate": 0.0003,
+    "save_weights": true,
+    "beta1": 0.5,
+    "beta2": 0.999,
+    "time_limit": 1,
+    "discriminator_weights_filename": "discriminator_2110_no_aug",
+    "generator_weights_filename": "generator_2110_no_aug"
+}

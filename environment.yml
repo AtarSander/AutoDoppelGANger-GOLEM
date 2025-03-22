@@ -1,0 +1,19 @@
+name: autodoppelganger
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.12
+  - opencv
+  - pytorch
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - torchvision
+  - tensorboard
+  - torchaudio
+  - pip
+  - pip:
+    - nuscenes-devkit==1.1.11

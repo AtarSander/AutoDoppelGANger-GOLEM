@@ -1,0 +1,9 @@
+opencv-python
+torch
+torchvision
+torchaudio
+scipy
+numpy
+pandas
+nuscenes-devkit==1.1.11
+matplotlib
