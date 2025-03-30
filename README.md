@@ -21,7 +21,7 @@ Original source of the data is [NuImages](https://www.nuscenes.org/nuimages) dat
 
 The dataset included photos of cars from various directions, in addition to photos of bicycles, motorcycles and mislabeled ones. After training on these images it turned out that they were too diverse for the model to learn how to generate accurate car images.
 
-![Results of training on mixed data](images/wrong_data_training_failure.png)
+![Results of training on mixed data](docs/wrong_data_training_failure.png)
 <br>
 The solution to this problem was semi-automated (with labeling_script.sh) hand-labeling of car images into three categories:
 - front
@@ -46,11 +46,11 @@ To evaluate the model (beside visual inspection), you can run command `incsc`. I
 Models trained by us achieved IS in range of 3.5 - 3.75
 ## Generated cars
 ### Front results
-![Front-results](images/front_generated.png)
+![Front-results](docs/front_generated.png)
 ### Side results
-![Side-results](images/side_generated.png)
+![Side-results](docs/side_generated.png)
 ### Back results
-![Back-results](images/back_generated.png)
+![Back-results](docs/back_generated.png)
 ## License
 This project is licensed under the terms of the [MIT license](https://opensource.org/licenses/MIT).
 ## Authors
