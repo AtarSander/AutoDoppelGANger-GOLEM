@@ -1,0 +1,14 @@
+name: autodoppelganger
+channels:
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+dependencies:
+  - python=3.11
+  - opencv
+  - matplotlib
+  - pandas
+  - scipy
+  - conda-forge::pytorch==2.9.1
+  - conda-forge::hydra-core
+  - conda-forge::wandb
+prefix: /home/atarsander/Programs/anaconda3/envs/autodoppelganger
