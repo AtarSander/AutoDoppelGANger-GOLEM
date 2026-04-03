@@ -1,7 +1,8 @@
 import os
+
 import cv2
 from natsort import natsorted
-import matplotlib.pyplot as plt
+
 
 class Labeler:
     def label_loop(self, directory, sort_direction=None):
@@ -17,11 +18,11 @@ class Labeler:
         option = input("f-front, b-back, s-side, d-discard: ")
 
         if option.strip() == "f":
-            os.rename(filepath, "datasets_labeled/front/images/"+filename)
+            os.rename(filepath, "datasets_labeled/front/images/" + filename)
         elif option.strip() == "b":
-            os.rename(filepath, "datasets_labeled/back/images/"+filename)
+            os.rename(filepath, "datasets_labeled/back/images/" + filename)
         elif option.strip() == "s":
-            os.rename(filepath, "datasets_labeled/side/images/"+filename)
+            os.rename(filepath, "datasets_labeled/side/images/" + filename)
         else:
             os.remove(filepath)
 
@@ -36,8 +37,6 @@ class Labeler:
         cv2.imshow(filename, image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
-
 
 
 labeler = Labeler()

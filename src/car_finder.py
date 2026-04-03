@@ -7,9 +7,7 @@ class CarFinder:
     def fetch_vehicles_bboxes_from_dataset(self):
         vehicles_bounding_boxes_dataset = {}
         for id, image in enumerate(self.nuim.sample):
-            vehicles_bboxes = self.fetch_vehicles_bboxes_from_img(
-                image
-            )
+            vehicles_bboxes = self.fetch_vehicles_bboxes_from_img(image)
             vehicles_bounding_boxes_dataset[id] = vehicles_bboxes
         return vehicles_bounding_boxes_dataset
 
@@ -27,4 +25,4 @@ class CarFinder:
 
     def check_bbox_size(self, bbox):
         x1, y1, x2, y2 = bbox
-        return abs(x2-x1) > self.min_size_x and abs(y2-y1) > self.min_size_y
+        return abs(x2 - x1) > self.min_size_x and abs(y2 - y1) > self.min_size_y

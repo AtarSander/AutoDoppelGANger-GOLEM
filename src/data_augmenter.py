@@ -1,7 +1,10 @@
-import cv2
 import os
+
+import cv2
 import numpy as np
+
 from src.progress_bar import ProgressBar
+
 
 class DataAugmenter:
     def __init__(self, directory):
@@ -20,13 +23,19 @@ class DataAugmenter:
 
     def create_variations(self, filename):
         augmented_images = {}
-        image = cv2.imread(self.directory+"/"+filename)
+        image = cv2.imread(self.directory + "/" + filename)
         augmented_images[self.set_filename("flip", filename)] = self.filp_horizontally(image)
         augmented_images[self.set_filename("-rotate", filename)] = self.rotate_image(image, -5)
         augmented_images[self.set_filename("+rotate", filename)] = self.rotate_image(image, 5)
-        augmented_images[self.set_filename("contrast", filename)] = self.adjust_contrast(image, 1.4)
-        augmented_images[self.set_filename("brightness", filename)] = self.adjust_brightness(image, 0.2)
-        augmented_images[self.set_filename("gaussian", filename)] = self.add_gaussian_noise(image, 0, 3)
+        augmented_images[self.set_filename("contrast", filename)] = self.adjust_contrast(
+            image, 1.4
+        )
+        augmented_images[self.set_filename("brightness", filename)] = self.adjust_brightness(
+            image, 0.2
+        )
+        augmented_images[self.set_filename("gaussian", filename)] = self.add_gaussian_noise(
+            image, 0, 3
+        )
         return augmented_images
 
     def filp_horizontally(self, image):
@@ -35,8 +44,10 @@ class DataAugmenter:
 
     def rotate_image(self, image, angle):
         height, width = image.shape[:2]
-        rotation_matrx = cv2.getRotationMatrix2D((height/2, width/2), angle, 1)
-        image_rotated = cv2.warpAffine(image, rotation_matrx, (width, height), flags=cv2.INTER_LINEAR)
+        rotation_matrx = cv2.getRotationMatrix2D((height / 2, width / 2), angle, 1)
+        image_rotated = cv2.warpAffine(
+            image, rotation_matrx, (width, height), flags=cv2.INTER_LINEAR
+        )
         return image_rotated
 
     def adjust_contrast(self, image, contrast_factor):
@@ -49,9 +60,9 @@ class DataAugmenter:
         adjusted_image = image_float + brightness_factor
         return self.reformat_to_int(adjusted_image)
 
-    def add_gaussian_noise(self, image, mean, sigma, scale_factor = 0.02):
+    def add_gaussian_noise(self, image, mean, sigma, scale_factor=0.02):
         random_noise = np.random.normal(mean, sigma, image.shape)
-        image_float = image.astype(np.float32) /255.0
+        image_float = image.astype(np.float32) / 255.0
         adjusted_image = image_float + random_noise * scale_factor
         return self.reformat_to_int(adjusted_image)
 
@@ -63,20 +74,20 @@ class DataAugmenter:
     def set_filename(self, type, org_filename):
         tmp = org_filename.rstrip(".jpg")
 
-        if type=='flip':
-            tmp+= 'f'
-        elif type=='-rotate':
-            tmp+='-r'
-        elif type=='+rotate':
-            tmp+='+r'
-        elif type== 'contrast':
-            tmp+='c'
-        elif type=='brightness':
-            tmp+='b'
-        elif type=='gaussian':
-            tmp+='g'
+        if type == "flip":
+            tmp += "f"
+        elif type == "-rotate":
+            tmp += "-r"
+        elif type == "+rotate":
+            tmp += "+r"
+        elif type == "contrast":
+            tmp += "c"
+        elif type == "brightness":
+            tmp += "b"
+        elif type == "gaussian":
+            tmp += "g"
 
-        filename = tmp+ '.jpg'
+        filename = tmp + ".jpg"
         return filename
 
     def save_image(self, image, filename):
