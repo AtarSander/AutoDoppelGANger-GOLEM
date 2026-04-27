@@ -15,7 +15,16 @@ PYTHON_INTERPRETER = python
 .PHONY: requirements
 requirements:
 	uv sync
-	
+
+## Download and convert the LSUN car dataset into ImageFolder format
+.PHONY: download_lsun_dataset
+download_lsun_dataset:
+	uv run python src/scripts/download_lsun_dataset.py
+
+## Download and extract the CompCars dataset
+.PHONY: download_compcars_dataset
+download_compcars_dataset:
+	uv run python src/scripts/download_compcars_dataset.py
 
 
 
@@ -49,7 +58,6 @@ create_environment:
 	@echo ">>> New uv virtual environment created. Activate with:"
 	@echo ">>> Windows: .\\\\.venv\\\\Scripts\\\\activate"
 	@echo ">>> Unix/macOS: source ./.venv/bin/activate"
-	
 
 
 
@@ -70,7 +78,7 @@ import re, sys; \
 lines = '\n'.join([line for line in sys.stdin]); \
 matches = re.findall(r'\n## (.*)\n[\s\S]+?\n([a-zA-Z_-]+):', lines); \
 print('Available rules:\n'); \
-print('\n'.join(['{:25}{}'.format(*reversed(match)) for match in matches]))
+print('\n'.join(['{:30}{}'.format(*reversed(match)) for match in matches]))
 endef
 export PRINT_HELP_PYSCRIPT
 

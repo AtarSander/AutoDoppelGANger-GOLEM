@@ -1,0 +1,18 @@
+raw_dir: data/raw/lsun_car
+interim_dir: data/interim/lsun_car
+output_dir: data/processed/lsun_car_imagefolder
+keep_lmdb: false
+limit: null
+
+download:
+  timeout_seconds: 120
+  retries: 4
+  backoff_seconds: 5
+  chunk_size_bytes: 1048576
+  user_agent: AutoDoppelGANger-GOLEM dataset downloader
+
+dataset:
+  name: LSUN car
+  source: http://dl.yf.io/lsun/objects/car.zip
+  splits:
+    train: http://dl.yf.io/lsun/objects/car.zip

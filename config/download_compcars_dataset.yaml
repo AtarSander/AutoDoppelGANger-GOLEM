@@ -1,0 +1,16 @@
+raw_dir: data/raw/compcars
+interim_dir: data/interim/compcars
+output_dir: data/external/compcars
+cleanup_intermediate: false
+include_surveillance: false
+
+download:
+  source: google_drive
+  google_drive_folder_url: https://drive.google.com/drive/folders/18EunmjOJsbE5Lh9zA0cZ4wKV6Um46dkg
+  dropbox_folder_url: https://www.dropbox.com/sh/46de2cre37fvzu6/AABXtX8QqA6sx37k1IyZmNQ2a?dl=0
+
+archives:
+  password: d89551fd190e38
+  web_prefix: data
+  surveillance_prefix: sv_data
+  combined_suffix: combined.zip
