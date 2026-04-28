@@ -14,3 +14,4 @@ archives:
   web_prefix: data
   surveillance_prefix: sv_data
   combined_suffix: combined.zip
+  disable_zipbomb_detection: true

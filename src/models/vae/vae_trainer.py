@@ -6,7 +6,7 @@ from jaxtyping import Float
 from torch import Tensor
 
 from src.trainer import Trainer
-from src.vae.vae import VAE
+from src.models.vae.vae import VAE
 
 
 class VAETrainer(Trainer):

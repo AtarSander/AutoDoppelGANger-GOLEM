@@ -161,3 +161,4 @@ cython_debug/
 uvscode
 
 .ruff_cache
+data/

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -76,7 +77,12 @@ def combine_archive_parts(raw_dir: Path, prefix: str, combined_suffix: str) -> P
     return combined_path
 
 
-def extract_password_archive(combined_path: Path, output_dir: Path, password: str) -> None:
+def extract_password_archive(
+    combined_path: Path,
+    output_dir: Path,
+    password: str,
+    disable_zipbomb_detection: bool,
+) -> None:
     ensure_command("unzip")
     ensure_dir(output_dir)
     marker = output_dir / ".extracted"
@@ -85,10 +91,14 @@ def extract_password_archive(combined_path: Path, output_dir: Path, password: st
         return
 
     logger.info("Extracting {} -> {}", combined_path, output_dir)
+    env = os.environ.copy()
+    if disable_zipbomb_detection:
+        env["UNZIP_DISABLE_ZIPBOMB_DETECTION"] = "TRUE"
     subprocess.run(
         ["unzip", "-o", "-P", password, str(combined_path), "-d", str(output_dir)],
         check=True,
         text=True,
+        env=env,
     )
     marker.write_text("ok\n", encoding="utf-8")
 
@@ -106,11 +116,17 @@ def process_archive_group(
     prefix: str,
     password: str,
     combined_suffix: str,
+    disable_zipbomb_detection: bool,
 ) -> dict[str, object]:
     parts = collect_archive_parts(raw_dir, prefix)
     combined_path = combine_archive_parts(raw_dir, prefix, combined_suffix)
     group_output_dir = extracted_root / prefix
-    extract_password_archive(combined_path, group_output_dir, password)
+    extract_password_archive(
+        combined_path=combined_path,
+        output_dir=group_output_dir,
+        password=password,
+        disable_zipbomb_detection=disable_zipbomb_detection,
+    )
     return {
         "prefix": prefix,
         "parts": [str(path) for path in parts],
@@ -155,6 +171,7 @@ def main(cfg: DictConfig) -> int:
         prefix=cfg.archives.web_prefix,
         password=cfg.archives.password,
         combined_suffix=cfg.archives.combined_suffix,
+        disable_zipbomb_detection=cfg.archives.disable_zipbomb_detection,
     )
     manifest["archives"]["web"] = web_report
 
@@ -165,6 +182,7 @@ def main(cfg: DictConfig) -> int:
             prefix=cfg.archives.surveillance_prefix,
             password=cfg.archives.password,
             combined_suffix=cfg.archives.combined_suffix,
+            disable_zipbomb_detection=cfg.archives.disable_zipbomb_detection,
         )
         manifest["archives"]["surveillance"] = surveillance_report
 
